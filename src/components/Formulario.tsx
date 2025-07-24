@@ -10,18 +10,23 @@ import {
   FormControl,
   InputLabel,
   SelectChangeEvent,
+  CircularProgress,
+  Alert,
 } from '@mui/material';
-import { useCategorias, useRecetas } from '../hooks/useContexts';
+import { useCategories } from '../hooks/useQueries';
 import { SearchFormData } from '../types';
 
-const Formulario: React.FC = () => {
+interface FormularioProps {
+  onSearch: (searchParams: SearchFormData) => void;
+}
+
+const Formulario: React.FC<FormularioProps> = ({ onSearch }) => {
   const [busqueda, guardarBusqueda] = useState<SearchFormData>({
     nombre: '',
     categoria: '',
   });
 
-  const { categorias } = useCategorias();
-  const { buscarRecetas, guardarConsultar } = useRecetas();
+  const { data: categorias = [], isLoading, error } = useCategories();
 
   const obtenerDatosInput = (e: ChangeEvent<HTMLInputElement>): void => {
     guardarBusqueda({
@@ -39,9 +44,20 @@ const Formulario: React.FC = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    buscarRecetas(busqueda);
-    guardarConsultar(true);
+    if (busqueda.nombre.trim() || busqueda.categoria.trim()) {
+      onSearch(busqueda);
+    }
   };
+
+  if (error) {
+    return (
+      <Container maxWidth="lg" sx={{ mt: 4 }}>
+        <Alert severity="error">
+          Error al cargar las categorías. Por favor, inténtalo de nuevo.
+        </Alert>
+      </Container>
+    );
+  }
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4 }}>
@@ -49,21 +65,20 @@ const Formulario: React.FC = () => {
         <Typography variant="h5" component="legend" align="center" gutterBottom>
           Busca Bebidas por Categoría o Ingrediente
         </Typography>
-
+        
         <Grid container spacing={3} sx={{ mt: 2 }}>
           <Grid item xs={12} md={4}>
             <TextField
               fullWidth
-              type="text"
               name="nombre"
               label="Buscar por ingrediente"
-              placeholder="Ej: vodka, ron, whisky..."
-              variant="outlined"
+              placeholder="Ej: vodka, ron, limón..."
               value={busqueda.nombre}
               onChange={obtenerDatosInput}
+              variant="outlined"
             />
           </Grid>
-
+          
           <Grid item xs={12} md={4}>
             <FormControl fullWidth variant="outlined">
               <InputLabel>Categoría</InputLabel>
@@ -72,6 +87,7 @@ const Formulario: React.FC = () => {
                 value={busqueda.categoria}
                 onChange={obtenerDatosSelect}
                 label="Categoría"
+                disabled={isLoading}
               >
                 <MenuItem value="">
                   <em>-- Selecciona Categoría --</em>
@@ -82,9 +98,12 @@ const Formulario: React.FC = () => {
                   </MenuItem>
                 ))}
               </Select>
+              {isLoading && (
+                <CircularProgress size={20} sx={{ position: 'absolute', right: 40, top: 15 }} />
+              )}
             </FormControl>
           </Grid>
-
+          
           <Grid item xs={12} md={4}>
             <Button
               type="submit"
@@ -92,6 +111,7 @@ const Formulario: React.FC = () => {
               color="primary"
               fullWidth
               size="large"
+              disabled={!busqueda.nombre.trim() && !busqueda.categoria.trim()}
               sx={{ height: '56px' }}
             >
               Buscar Bebidas
