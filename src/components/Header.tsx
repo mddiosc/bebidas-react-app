@@ -6,7 +6,7 @@ const Header: React.FC = () => {
     <AppBar position="static" sx={{ backgroundColor: '#dc3545' }}>
       <Toolbar>
         <Typography variant="h4" component="h1" sx={{ flexGrow: 1, textAlign: 'center' }}>
-          Busca Recetas de Bebidas
+          Search Drink Recipes
         </Typography>
       </Toolbar>
     </AppBar>

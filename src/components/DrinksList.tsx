@@ -9,24 +9,24 @@ import {
 } from '@mui/material';
 import { useSearchDrinks } from '../hooks/useQueries';
 import { SearchFormData } from '../types';
-import Receta from './Receta';
+import DrinkCard from './DrinkCard';
 
-interface ListaRecetasProps {
+interface DrinkListProps {
   searchParams: SearchFormData | null;
   searchEnabled: boolean;
 }
 
-const ListaRecetasModerna: React.FC<ListaRecetasProps> = ({
+const DrinkList: React.FC<DrinkListProps> = ({
   searchParams,
   searchEnabled,
 }) => {
   const {
-    data: recetas = [],
+    data: drinks = [],
     isLoading,
     error,
     isError,
   } = useSearchDrinks(
-    searchParams || { nombre: '', categoria: '' },
+    searchParams || { name: '', category: '' },
     searchEnabled && !!searchParams
   );
 
@@ -36,7 +36,7 @@ const ListaRecetasModerna: React.FC<ListaRecetasProps> = ({
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
           <CircularProgress size={60} />
           <Typography variant="h6" sx={{ ml: 2 }}>
-            Buscando recetas...
+            Searching for drinks...
           </Typography>
         </Box>
       </Container>
@@ -47,10 +47,10 @@ const ListaRecetasModerna: React.FC<ListaRecetasProps> = ({
     return (
       <Container maxWidth="lg" sx={{ mt: 5 }}>
         <Alert severity="error">
-          Error al buscar las recetas. Por favor, inténtalo de nuevo.
+          Error searching for drinks. Please try again.
           {error?.message && (
             <Typography variant="body2" sx={{ mt: 1 }}>
-              Detalle: {error.message}
+              Details: {error.message}
             </Typography>
           )}
         </Alert>
@@ -62,18 +62,18 @@ const ListaRecetasModerna: React.FC<ListaRecetasProps> = ({
     return (
       <Container maxWidth="lg" sx={{ mt: 5 }}>
         <Typography variant="h6" align="center" color="text.secondary">
-          Utiliza el formulario de arriba para buscar recetas de bebidas.
+          Use the form above to search for drink recipes.
         </Typography>
       </Container>
     );
   }
 
-  if (recetas.length === 0 && searchEnabled) {
+  if (drinks.length === 0 && searchEnabled) {
     return (
       <Container maxWidth="lg" sx={{ mt: 5 }}>
         <Typography variant="h6" align="center" color="text.secondary">
-          No se encontraron recetas con los términos de búsqueda utilizados.
-          Intenta con otros ingredientes o categorías.
+          No drinks were found with the search terms used.
+          Try with other ingredients or categories.
         </Typography>
       </Container>
     );
@@ -82,13 +82,13 @@ const ListaRecetasModerna: React.FC<ListaRecetasProps> = ({
   return (
     <Container maxWidth="lg" sx={{ mt: 5 }}>
       <Typography variant="h4" align="center" gutterBottom>
-        Resultados de la búsqueda ({recetas.length} recetas encontradas)
+        Search Results ({drinks.length} drinks found)
       </Typography>
       
       <Grid container spacing={3}>
-        {recetas.map((receta) => (
-          <Grid item xs={12} sm={6} md={4} key={receta.idDrink}>
-            <Receta receta={receta} />
+        {drinks.map((drink) => (
+          <Grid item xs={12} sm={6} md={4} key={drink.idDrink}>
+            <DrinkCard drink={drink} />
           </Grid>
         ))}
       </Grid>
@@ -96,4 +96,4 @@ const ListaRecetasModerna: React.FC<ListaRecetasProps> = ({
   );
 };
 
-export default ListaRecetasModerna;
+export default DrinkList;

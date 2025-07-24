@@ -1,4 +1,4 @@
-// Tipos para la API de bebidas
+// Types for the drinks API
 
 export interface Drink {
   idDrink: string;
@@ -50,23 +50,7 @@ export interface CategoryApiResponse {
 }
 
 export interface SearchFormData {
-  nombre: string;
-  categoria: string;
+  name: string;
+  category: string;
 }
 
-// Contextos
-export interface CategoriasContextType {
-  categorias: Category[];
-}
-
-export interface RecetasContextType {
-  recetas: Drink[];
-  buscarRecetas: (busqueda: SearchFormData) => void;
-  guardarConsultar: (consultar: boolean) => void;
-}
-
-export interface ModalContextType {
-  inforeceta: Drink | null;
-  guardarIdReceta: (id: string | null) => void;
-  guardarReceta: (receta: Drink | null) => void;
-}

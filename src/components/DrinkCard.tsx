@@ -19,8 +19,8 @@ import { useModalStore } from '../stores/modalStore';
 import { useDrinkDetails } from '../hooks/useQueries';
 import { Drink } from '../types';
 
-interface RecetaModernaProps {
-  receta: Drink;
+interface DrinkCardProps {
+  drink: Drink;
 }
 
 const modalStyle = {
@@ -37,38 +37,38 @@ const modalStyle = {
   borderRadius: 2,
 };
 
-const RecetaModerna: React.FC<RecetaModernaProps> = ({ receta }) => {
+const DrinkCard: React.FC<DrinkCardProps> = ({ drink }) => {
   const { isOpen, selectedDrinkId, openModal, closeModal } = useModalStore();
-  const isCurrentModalOpen = isOpen && selectedDrinkId === receta.idDrink;
+  const isCurrentModalOpen = isOpen && selectedDrinkId === drink.idDrink;
 
   const {
-    data: detalleReceta,
+    data: drinkDetails,
     isLoading,
     error,
   } = useDrinkDetails(isCurrentModalOpen ? selectedDrinkId : null);
 
-  const mostrarIngredientes = (informacion: Drink): React.ReactElement[] => {
-    const ingredientes: React.ReactElement[] = [];
+  const renderIngredients = (drinkInfo: Drink): React.ReactElement[] => {
+    const ingredients: React.ReactElement[] = [];
     for (let i = 1; i < 16; i++) {
-      const ingrediente = informacion[`strIngredient${i}` as keyof Drink] as string;
-      const medida = informacion[`strMeasure${i}` as keyof Drink] as string;
+      const ingredient = drinkInfo[`strIngredient${i}` as keyof Drink] as string;
+      const measure = drinkInfo[`strMeasure${i}` as keyof Drink] as string;
       
-      if (ingrediente?.trim()) {
-        ingredientes.push(
+      if (ingredient?.trim()) {
+        ingredients.push(
           <ListItem key={i} disablePadding>
             <ListItemText 
-              primary={`${ingrediente.trim()} ${medida?.trim() || ''}`}
+              primary={`${ingredient.trim()} ${measure?.trim() || ''}`}
               sx={{ py: 0.5 }}
             />
           </ListItem>
         );
       }
     }
-    return ingredientes;
+    return ingredients;
   };
 
-  const handleVerReceta = (): void => {
-    openModal(receta.idDrink);
+  const handleViewRecipe = (): void => {
+    openModal(drink.idDrink);
   };
 
   const handleCloseModal = (): void => {
@@ -81,7 +81,7 @@ const RecetaModerna: React.FC<RecetaModernaProps> = ({ receta }) => {
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
           <CircularProgress />
           <Typography variant="h6" sx={{ ml: 2 }}>
-            Cargando detalles de la receta...
+            Loading recipe details...
           </Typography>
         </Box>
       );
@@ -90,15 +90,15 @@ const RecetaModerna: React.FC<RecetaModernaProps> = ({ receta }) => {
     if (error) {
       return (
         <Alert severity="error">
-          Error al cargar los detalles de la receta. Por favor, inténtalo de nuevo.
+          Error loading recipe details. Please try again.
         </Alert>
       );
     }
 
-    if (!detalleReceta) {
+    if (!drinkDetails) {
       return (
         <Alert severity="warning">
-          No se encontraron detalles para esta receta.
+          No details found for this recipe.
         </Alert>
       );
     }
@@ -106,8 +106,8 @@ const RecetaModerna: React.FC<RecetaModernaProps> = ({ receta }) => {
     return (
       <>
         <Box display="flex" justifyContent="space-between" alignItems="flex-start" mb={2}>
-          <Typography id="modal-receta-title" variant="h4" component="h2" sx={{ pr: 2 }}>
-            {detalleReceta.strDrink}
+          <Typography id="modal-recipe-title" variant="h4" component="h2" sx={{ pr: 2 }}>
+            {drinkDetails.strDrink}
           </Typography>
           <IconButton
             onClick={handleCloseModal}
@@ -122,11 +122,11 @@ const RecetaModerna: React.FC<RecetaModernaProps> = ({ receta }) => {
           </IconButton>
         </Box>
         
-        {detalleReceta.strDrinkThumb && (
+        {drinkDetails.strDrinkThumb && (
           <Box
             component="img"
-            src={detalleReceta.strDrinkThumb}
-            alt={detalleReceta.strDrink}
+            src={drinkDetails.strDrinkThumb}
+            alt={drinkDetails.strDrink}
             sx={{
               width: '100%',
               maxWidth: 300,
@@ -140,17 +140,17 @@ const RecetaModerna: React.FC<RecetaModernaProps> = ({ receta }) => {
         )}
 
         <Typography variant="h6" component="h3" gutterBottom sx={{ mt: 2 }}>
-          Ingredientes y Cantidades
+          Ingredients and Quantities
         </Typography>
         <List dense sx={{ mb: 3 }}>
-          {mostrarIngredientes(detalleReceta)}
+          {renderIngredients(drinkDetails)}
         </List>
 
         <Typography variant="h6" component="h3" gutterBottom sx={{ mt: 3 }}>
-          Instrucciones
+          Instructions
         </Typography>
         <Typography variant="body1" paragraph sx={{ textAlign: 'justify' }}>
-          {detalleReceta.strInstructions}
+          {drinkDetails.strInstructions}
         </Typography>
       </>
     );
@@ -162,8 +162,8 @@ const RecetaModerna: React.FC<RecetaModernaProps> = ({ receta }) => {
         <CardMedia
           component="img"
           height="200"
-          image={receta.strDrinkThumb}
-          alt={`Imagen de ${receta.strDrink}`}
+          image={drink.strDrinkThumb}
+          alt={`Image of ${drink.strDrink}`}
           sx={{ objectFit: 'cover' }}
         />
         <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
@@ -182,16 +182,16 @@ const RecetaModerna: React.FC<RecetaModernaProps> = ({ receta }) => {
               mb: 2
             }}
           >
-            {receta.strDrink}
+            {drink.strDrink}
           </Typography>
           <Button
             variant="contained"
             color="primary"
             fullWidth
-            onClick={handleVerReceta}
+            onClick={handleViewRecipe}
             sx={{ mt: 'auto' }}
           >
-            Ver Receta
+            View Recipe
           </Button>
         </CardContent>
       </Card>
@@ -199,8 +199,8 @@ const RecetaModerna: React.FC<RecetaModernaProps> = ({ receta }) => {
       <Modal
         open={isCurrentModalOpen}
         onClose={handleCloseModal}
-        aria-labelledby="modal-receta-title"
-        aria-describedby="modal-receta-description"
+        aria-labelledby="modal-recipe-title"
+        aria-describedby="modal-recipe-description"
         slotProps={{
           backdrop: {
             onClick: handleCloseModal,
@@ -215,4 +215,4 @@ const RecetaModerna: React.FC<RecetaModernaProps> = ({ receta }) => {
   );
 };
 
-export default RecetaModerna;
+export default DrinkCard;

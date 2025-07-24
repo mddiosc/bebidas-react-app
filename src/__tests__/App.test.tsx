@@ -6,20 +6,20 @@ describe('App', () => {
   it('renders the main heading', () => {
     render(<App />);
     
-    // Verificar que el título principal esté presente
-    expect(screen.getByText('Busca Recetas de Bebidas')).toBeInTheDocument();
+    // Verify that the main title is present
+    expect(screen.getByText('Search Drink Recipes')).toBeInTheDocument();
   });
 
   it('renders search form elements', () => {
     render(<App />);
     
-    // Verificar que los elementos del formulario estén presentes
-    expect(screen.getByLabelText(/buscar por ingrediente/i)).toBeInTheDocument();
+    // Verify that form elements are present
+    expect(screen.getByLabelText(/search by ingredient/i)).toBeInTheDocument();
     
-    // Para el Select de MUI, buscar directamente por el combobox
+    // For MUI Select, search directly by combobox
     expect(screen.getByRole('combobox')).toBeInTheDocument();
     
-    // Verificar el botón de búsqueda
-    expect(screen.getByRole('button', { name: /buscar bebidas/i })).toBeInTheDocument();
+    // Verify the search button
+    expect(screen.getByRole('button', { name: /search drinks/i })).toBeInTheDocument();
   });
 });

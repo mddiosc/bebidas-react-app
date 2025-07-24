@@ -16,36 +16,36 @@ import {
 import { useCategories } from '../hooks/useQueries';
 import { SearchFormData } from '../types';
 
-interface FormularioProps {
+interface FormProps {
   onSearch: (searchParams: SearchFormData) => void;
 }
 
-const Formulario: React.FC<FormularioProps> = ({ onSearch }) => {
-  const [busqueda, guardarBusqueda] = useState<SearchFormData>({
-    nombre: '',
-    categoria: '',
+const Form: React.FC<FormProps> = ({ onSearch }) => {
+  const [searchData, setSearchData] = useState<SearchFormData>({
+    name: '',
+    category: '',
   });
 
-  const { data: categorias = [], isLoading, error } = useCategories();
+  const { data: categories = [], isLoading, error } = useCategories();
 
-  const obtenerDatosInput = (e: ChangeEvent<HTMLInputElement>): void => {
-    guardarBusqueda({
-      ...busqueda,
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setSearchData({
+      ...searchData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const obtenerDatosSelect = (e: SelectChangeEvent<string>): void => {
-    guardarBusqueda({
-      ...busqueda,
+  const handleSelectChange = (e: SelectChangeEvent<string>): void => {
+    setSearchData({
+      ...searchData,
       [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    if (busqueda.nombre.trim() || busqueda.categoria.trim()) {
-      onSearch(busqueda);
+    if (searchData.name.trim() || searchData.category.trim()) {
+      onSearch(searchData);
     }
   };
 
@@ -53,7 +53,7 @@ const Formulario: React.FC<FormularioProps> = ({ onSearch }) => {
     return (
       <Container maxWidth="lg" sx={{ mt: 4 }}>
         <Alert severity="error">
-          Error al cargar las categorías. Por favor, inténtalo de nuevo.
+          Error loading categories. Please try again.
         </Alert>
       </Container>
     );
@@ -63,38 +63,38 @@ const Formulario: React.FC<FormularioProps> = ({ onSearch }) => {
     <Container maxWidth="lg" sx={{ mt: 4 }}>
       <form onSubmit={handleSubmit}>
         <Typography variant="h5" component="legend" align="center" gutterBottom>
-          Busca Bebidas por Categoría o Ingrediente
+          Search Drinks by Category or Ingredient
         </Typography>
         
         <Grid container spacing={3} sx={{ mt: 2 }}>
           <Grid item xs={12} md={4}>
             <TextField
               fullWidth
-              name="nombre"
-              label="Buscar por ingrediente"
-              placeholder="Ej: vodka, ron, limón..."
-              value={busqueda.nombre}
-              onChange={obtenerDatosInput}
+              name="name"
+              label="Search by ingredient"
+              placeholder="e.g: vodka, rum, lemon..."
+              value={searchData.name}
+              onChange={handleInputChange}
               variant="outlined"
             />
           </Grid>
           
           <Grid item xs={12} md={4}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel>Categoría</InputLabel>
+              <InputLabel>Category</InputLabel>
               <Select
-                name="categoria"
-                value={busqueda.categoria}
-                onChange={obtenerDatosSelect}
-                label="Categoría"
+                name="category"
+                value={searchData.category}
+                onChange={handleSelectChange}
+                label="Category"
                 disabled={isLoading}
               >
                 <MenuItem value="">
-                  <em>-- Selecciona Categoría --</em>
+                  <em>-- Select Category --</em>
                 </MenuItem>
-                {categorias.map((categoria) => (
-                  <MenuItem key={categoria.strCategory} value={categoria.strCategory}>
-                    {categoria.strCategory}
+                {categories.map((category) => (
+                  <MenuItem key={category.strCategory} value={category.strCategory}>
+                    {category.strCategory}
                   </MenuItem>
                 ))}
               </Select>
@@ -111,10 +111,10 @@ const Formulario: React.FC<FormularioProps> = ({ onSearch }) => {
               color="primary"
               fullWidth
               size="large"
-              disabled={!busqueda.nombre.trim() && !busqueda.categoria.trim()}
+              disabled={!searchData.name.trim() && !searchData.category.trim()}
               sx={{ height: '56px' }}
             >
-              Buscar Bebidas
+              Search Drinks
             </Button>
           </Grid>
         </Grid>
@@ -123,4 +123,4 @@ const Formulario: React.FC<FormularioProps> = ({ onSearch }) => {
   );
 };
 
-export default Formulario;
+export default Form;
