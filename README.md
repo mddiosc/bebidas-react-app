@@ -1,70 +1,152 @@
-# Getting Started with Create React App
+# 🍹 Buscador de Bebidas - Modernizado
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Una aplicación moderna de React para buscar recetas de cócteles y bebidas, completamente refactorizada con las tecnologías más actuales.
 
-## Available Scripts
+## 🚀 Stack Tecnológico
 
-In the project directory, you can run:
+### Frontend
+- **React 18** - Biblioteca de interfaz de usuario
+- **TypeScript 5** - Tipado estático
+- **Material-UI v6** - Componentes de interfaz modernos
+- **Emotion** - Biblioteca de estilos CSS-in-JS
 
-### `yarn start`
+### Herramientas de Desarrollo
+- **Vite 6** - Herramienta de construcción ultrarrápida
+- **ESLint 9** - Linter de código con configuración moderna
+- **Vitest** - Framework de testing
+- **pnpm** - Gestor de paquetes rápido
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Gestión de Estado
+- **React Context API** - Estado global de la aplicación
+- **Custom Hooks** - Hooks personalizados para acceso a contextos
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 📦 Instalación
 
-### `yarn test`
+### Prerrequisitos
+- Node.js 20+ (gestionado con Volta)
+- pnpm 9+ (gestionado con Volta)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Comandos
+```bash
+# Instalar dependencias
+pnpm install
 
-### `yarn build`
+# Ejecutar en modo desarrollo
+pnpm dev
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Construir para producción
+pnpm build
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Ejecutar linter
+pnpm lint
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Verificar tipos de TypeScript
+pnpm type-check
 
-### `yarn eject`
+# Ejecutar tests
+pnpm test
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 🏗️ Arquitectura
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Estructura de Carpetas
+```
+src/
+├── components/          # Componentes de React
+│   ├── Header.tsx      # Cabecera de la aplicación
+│   ├── Formulario.tsx  # Formulario de búsqueda
+│   ├── ListaRecetas.tsx# Lista de resultados
+│   └── Receta.tsx      # Componente individual de receta
+├── context/            # Contextos de React
+│   ├── CategoriasContext.tsx
+│   ├── RecetasContext.tsx
+│   └── ModalContext.tsx
+├── hooks/              # Hooks personalizados
+│   └── useContexts.ts  # Hooks para acceso a contextos
+├── types/              # Definiciones de tipos TypeScript
+│   └── index.ts        # Tipos globales
+└── main.tsx           # Punto de entrada de la aplicación
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Patrones Implementados
+- **Context + Custom Hooks**: Para gestión de estado global
+- **TypeScript Estricto**: Sin tipos `any`, tipado completo
+- **Component Composition**: Componentes reutilizables y modulares
+- **Error Boundaries**: Manejo robusto de errores
+- **Responsive Design**: Diseño adaptativo con Material-UI
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 🎨 Características
 
-## Learn More
+### Funcionalidades
+- ✅ Búsqueda de bebidas por ingrediente
+- ✅ Filtrado por categorías
+- ✅ Visualización de recetas completas en modal
+- ✅ Diseño responsive y moderno
+- ✅ Manejo de errores y estados de carga
+- ✅ Tipado completo con TypeScript
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Mejoras Implementadas
+- 🔄 Migración de Create React App a Vite
+- 📦 Actualización a React 18
+- 🎯 TypeScript con configuración estricta
+- 🎨 Migración de Material-UI v4 a v6
+- 🚀 Configuración moderna de ESLint
+- 🧪 Setup de testing con Vitest
+- 📱 Diseño mejorado y responsive
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🔧 Configuración de Desarrollo
 
-### Code Splitting
+### Volta.sh
+Las versiones de Node.js y pnpm están fijadas usando Volta:
+```json
+{
+  "volta": {
+    "node": "20.19.4",
+    "pnpm": "9.15.9"
+  }
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### TypeScript
+Configuración estricta que evita el uso de `any`:
+- `noImplicitAny: true`
+- `strictNullChecks: true`
+- `strictFunctionTypes: true`
 
-### Analyzing the Bundle Size
+### ESLint
+Configuración moderna con:
+- Detección de errores de TypeScript
+- Reglas de React Hooks
+- Configuración de React Refresh
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🌐 API
 
-### Making a Progressive Web App
+La aplicación consume la API pública de [TheCocktailDB](https://www.thecocktaildb.com/):
+- Endpoint de categorías: `/api/json/v1/1/list.php?c=list`
+- Endpoint de búsqueda: `/api/json/v1/1/filter.php?i={ingrediente}&c={categoria}`
+- Endpoint de detalles: `/api/json/v1/1/lookup.php?i={id}`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🎯 Scripts Disponibles
 
-### Advanced Configuration
+- `pnpm dev` - Ejecuta la aplicación en modo desarrollo
+- `pnpm build` - Construye la aplicación para producción
+- `pnpm preview` - Previsualiza la construcción de producción
+- `pnpm lint` - Ejecuta el linter de código
+- `pnpm type-check` - Verifica los tipos de TypeScript
+- `pnpm test` - Ejecuta las pruebas unitarias
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🤝 Contribución
 
-### Deployment
+1. Fork el proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 📄 Licencia
 
-### `yarn build` fails to minify
+Este proyecto está bajo la licencia MIT.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+**Refactorizado completamente en 2025** - De Create React App a Vite + TypeScript + Material-UI v6
