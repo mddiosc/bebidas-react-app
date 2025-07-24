@@ -1,103 +1,209 @@
-# 🍹 Buscador de Bebidas - Modernizado
+# 🍹 Cocktail Explorer
 
-Una aplicación moderna de React para buscar recetas de cócteles y bebidas, completamente refactorizada con las tecnologías más actuales.
+A modern React application for searching cocktail and drink recipes, completely refactored with cutting-edge technologies and best practices.
 
-## 🚀 Stack Tecnológico
+![React](https://img.shields.io/badge/React-18.3-61DAFB?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)
+![Material-UI](https://img.shields.io/badge/Material--UI-6.3-007FFF?style=for-the-badge&logo=mui)
+![Vite](https://img.shields.io/badge/Vite-6.3-646CFF?style=for-the-badge&logo=vite)
+
+## ✨ Features
+
+- 🔍 **Smart Search**: Search cocktails by name, ingredient, or category
+- 🏷️ **Category Filtering**: Browse drinks by type (Cocktail, Shot, etc.)
+- 📱 **Responsive Design**: Optimized for desktop, tablet, and mobile
+- 🎨 **Modern UI**: Beautiful Material-UI components with smooth animations
+- 📊 **Featured Drinks**: Daily specials and popular cocktail recommendations
+- 🔄 **Real-time Updates**: Instant search results with loading states
+- 🎯 **TypeScript**: Full type safety throughout the application
+- 🚀 **Performance**: Optimized with React Query caching and lazy loading
+
+## 🛠️ Tech Stack
 
 ### Frontend
-- **React 18** - Biblioteca de interfaz de usuario
-- **TypeScript 5** - Tipado estático
-- **Material-UI v6** - Componentes de interfaz modernos
-- **Emotion** - Biblioteca de estilos CSS-in-JS
+- **React 18.3** - Modern React with concurrent features
+- **TypeScript 5.0** - Static type checking
+- **Material-UI v6** - Component library with theming
+- **Emotion** - CSS-in-JS styling solution
 
-### Herramientas de Desarrollo
-- **Vite 6** - Herramienta de construcción ultrarrápida
-- **ESLint 9** - Linter de código con configuración moderna
-- **Vitest** - Framework de testing
-- **pnpm** - Gestor de paquetes rápido
+### State Management & Data Fetching
+- **React Query (TanStack)** - Server state management and caching
+- **Zustand** - Lightweight client state management
+- **Custom Hooks** - Encapsulated business logic
 
-### Gestión de Estado
-- **React Context API** - Estado global de la aplicación
-- **Custom Hooks** - Hooks personalizados para acceso a contextos
+### Build Tools & Development
+- **Vite 6.3** - Ultra-fast build tool and dev server
+- **ESLint 9** - Code linting with modern configuration
+- **Vitest** - Testing framework
+- **pnpm** - Fast package manager
 
-## 📦 Instalación
+### Code Quality
+- **Strict TypeScript** - No implicit any, strict null checks
+- **Component Architecture** - Reusable and composable components  
+- **Error Boundaries** - Graceful error handling
+- **Accessibility** - WCAG compliant components
 
-### Prerrequisitos
-- Node.js 20+ (gestionado con Volta)
-- pnpm 9+ (gestionado con Volta)
+## � Getting Started
 
-### Comandos
+### Prerequisites
+- Node.js 20+ (managed with Volta)
+- pnpm 9+ (managed with Volta)
+
+### Installation
+
 ```bash
-# Instalar dependencias
+# Clone the repository
+git clone <repository-url>
+cd bebidas-react-app
+
+# Install dependencies
 pnpm install
 
-# Ejecutar en modo desarrollo
+# Start development server
 pnpm dev
 
-# Construir para producción
-pnpm build
-
-# Ejecutar linter
-pnpm lint
-
-# Verificar tipos de TypeScript
-pnpm type-check
-
-# Ejecutar tests
-pnpm test
+# Open http://localhost:3000 in your browser
 ```
 
-## 🏗️ Arquitectura
+### Available Scripts
 
-### Estructura de Carpetas
+```bash
+# Development
+pnpm dev          # Start development server with HMR
+pnpm build        # Build for production
+pnpm preview      # Preview production build locally
+
+# Code Quality
+pnpm lint         # Run ESLint
+pnpm type-check   # Run TypeScript compiler check
+pnpm test         # Run unit tests with Vitest
+
+# Package Management
+pnpm install      # Install dependencies
+pnpm update       # Update dependencies
+```
+
+## 📁 Project Structure
+
 ```
 src/
-├── components/          # Componentes de React
-│   ├── Header.tsx      # Cabecera de la aplicación
-│   ├── Formulario.tsx  # Formulario de búsqueda
-│   ├── ListaRecetas.tsx# Lista de resultados
-│   └── Receta.tsx      # Componente individual de receta
-├── context/            # Contextos de React
-│   ├── CategoriasContext.tsx
-│   ├── RecetasContext.tsx
-│   └── ModalContext.tsx
-├── hooks/              # Hooks personalizados
-│   └── useContexts.ts  # Hooks para acceso a contextos
-├── types/              # Definiciones de tipos TypeScript
-│   └── index.ts        # Tipos globales
-└── main.tsx           # Punto de entrada de la aplicación
+├── components/              # React components
+│   ├── DrinkCard.tsx       # Individual drink card with modal
+│   ├── DrinksList.tsx      # Search results grid
+│   ├── FeaturedDrinks.tsx  # Daily specials and popular drinks
+│   ├── Header.tsx          # Application header
+│   └── SearchForm.tsx      # Search and filter form
+├── hooks/                  # Custom React hooks
+│   ├── useQueries.ts       # Main data fetching hooks
+│   └── useExtraQueries.ts  # Featured content hooks
+├── services/               # API layer
+│   └── cocktailApi.ts      # TheCocktailDB API client
+├── stores/                 # State management
+│   └── modalStore.ts       # Modal state with Zustand
+├── types/                  # TypeScript definitions
+│   └── index.ts            # Global type definitions
+├── __tests__/              # Test files
+│   └── App.test.tsx        # Main app tests
+├── App.tsx                 # Root application component
+└── main.tsx                # Application entry point
 ```
 
-### Patrones Implementados
-- **Context + Custom Hooks**: Para gestión de estado global
-- **TypeScript Estricto**: Sin tipos `any`, tipado completo
-- **Component Composition**: Componentes reutilizables y modulares
-- **Error Boundaries**: Manejo robusto de errores
-- **Responsive Design**: Diseño adaptativo con Material-UI
+## 🏗️ Architecture Patterns
 
-## 🎨 Características
+### Component Design
+- **Separation of Concerns**: UI, business logic, and data fetching are separated
+- **Custom Hooks**: Encapsulate data fetching and state management logic
+- **Compound Components**: Complex components broken into smaller, focused pieces
+- **Render Props & Children**: Flexible component composition patterns
 
-### Funcionalidades
-- ✅ Búsqueda de bebidas por ingrediente
-- ✅ Filtrado por categorías
-- ✅ Visualización de recetas completas en modal
-- ✅ Diseño responsive y moderno
-- ✅ Manejo de errores y estados de carga
-- ✅ Tipado completo con TypeScript
+### State Management
+- **Server State**: React Query for API data, caching, and synchronization
+- **Client State**: Zustand for UI state (modals, forms)
+- **Local State**: React useState for component-specific state
+- **Derived State**: Computed values from existing state
 
-### Mejoras Implementadas
-- 🔄 Migración de Create React App a Vite
-- 📦 Actualización a React 18
-- 🎯 TypeScript con configuración estricta
-- 🎨 Migración de Material-UI v4 a v6
-- 🚀 Configuración moderna de ESLint
-- 🧪 Setup de testing con Vitest
-- 📱 Diseño mejorado y responsive
+### Data Flow
+```
+API (TheCocktailDB) → React Query → Custom Hooks → Components
+                                 ↓
+                              Zustand Store (UI State)
+```
 
-## 🔧 Configuración de Desarrollo
+## � API Integration
 
-### Volta.sh
-Las versiones de Node.js y pnpm están fijadas usando Volta:
+The application consumes [TheCocktailDB](https://www.thecocktaildb.com/) public API:
+
+### Endpoints Used
+- **Categories**: `/api/json/v1/1/list.php?c=list`
+- **Search by Name**: `/api/json/v1/1/search.php?s={name}`
+- **Search by Ingredient**: `/api/json/v1/1/filter.php?i={ingredient}`
+- **Filter by Category**: `/api/json/v1/1/filter.php?c={category}`
+- **Drink Details**: `/api/json/v1/1/lookup.php?i={id}`
+- **Random Drink**: `/api/json/v1/1/random.php`
+
+### Caching Strategy
+- **Stale Time**: 5 minutes for search results
+- **Garbage Collection**: 10 minutes for unused queries
+- **Background Refetch**: Disabled for better UX
+- **Retry Policy**: 3 attempts with exponential backoff
+
+## 🎨 UI/UX Features
+
+### Design System
+- **Material Design 3**: Modern Google design language
+- **Custom Theme**: Consistent colors, typography, and spacing
+- **Responsive Breakpoints**: Mobile-first approach
+- **Dark Mode Ready**: Theme structure supports dark mode
+
+### Animations & Interactions
+- **Smooth Transitions**: Fade-in animations for content loading
+- **Hover Effects**: Interactive feedback on cards and buttons
+- **Loading States**: Skeleton loaders and progress indicators
+- **Error States**: User-friendly error messages and recovery
+
+### Accessibility
+- **Keyboard Navigation**: Full keyboard support
+- **Screen Reader**: Proper ARIA labels and semantic HTML
+- **Color Contrast**: WCAG AA compliant color ratios
+- **Focus Management**: Logical tab order and focus indicators
+
+## 🧪 Testing Strategy
+
+### Unit Tests
+- **Component Testing**: React Testing Library
+- **Hook Testing**: Custom hooks isolated testing
+- **Utility Functions**: Pure function testing
+- **Mocking**: API calls and external dependencies
+
+### Test Categories
+```bash
+# Run all tests
+pnpm test
+
+# Run tests in watch mode
+pnpm test --watch
+
+# Run tests with coverage
+pnpm test --coverage
+```
+
+## 🚀 Performance Optimizations
+
+### Build Optimizations
+- **Code Splitting**: Dynamic imports for route-based splitting
+- **Tree Shaking**: Unused code elimination
+- **Bundle Analysis**: Webpack bundle analyzer integration
+- **Asset Optimization**: Image compression and lazy loading
+
+### Runtime Optimizations
+- **React Query Caching**: Intelligent data caching and deduplication
+- **Memoization**: React.memo and useMemo for expensive computations
+- **Lazy Loading**: Components and images loaded on demand
+- **Debounced Search**: Reduced API calls during user input
+
+## 🔧 Development Tools
+
+### Volta Configuration
 ```json
 {
   "volta": {
@@ -107,46 +213,78 @@ Las versiones de Node.js y pnpm están fijadas usando Volta:
 }
 ```
 
-### TypeScript
-Configuración estricta que evita el uso de `any`:
-- `noImplicitAny: true`
-- `strictNullChecks: true`
-- `strictFunctionTypes: true`
+### TypeScript Configuration
+- **Strict Mode**: Maximum type safety
+- **Path Mapping**: Clean import paths
+- **Incremental Compilation**: Faster development builds
 
-### ESLint
-Configuración moderna con:
-- Detección de errores de TypeScript
-- Reglas de React Hooks
-- Configuración de React Refresh
+### ESLint Rules
+- **React Hooks**: Proper hooks usage
+- **TypeScript**: Type-specific linting
+- **Import/Export**: Module organization
+- **Accessibility**: a11y rule enforcement
 
-## 🌐 API
+## 🌍 Browser Support
 
-La aplicación consume la API pública de [TheCocktailDB](https://www.thecocktaildb.com/):
-- Endpoint de categorías: `/api/json/v1/1/list.php?c=list`
-- Endpoint de búsqueda: `/api/json/v1/1/filter.php?i={ingrediente}&c={categoria}`
-- Endpoint de detalles: `/api/json/v1/1/lookup.php?i={id}`
+| Browser | Version |
+|---------|---------|
+| Chrome  | 90+     |
+| Firefox | 88+     |
+| Safari  | 14+     |
+| Edge    | 90+     |
 
-## 🎯 Scripts Disponibles
+## 📱 Mobile Support
 
-- `pnpm dev` - Ejecuta la aplicación en modo desarrollo
-- `pnpm build` - Construye la aplicación para producción
-- `pnpm preview` - Previsualiza la construcción de producción
-- `pnpm lint` - Ejecuta el linter de código
-- `pnpm type-check` - Verifica los tipos de TypeScript
-- `pnpm test` - Ejecuta las pruebas unitarias
+- **Progressive Web App**: PWA ready configuration
+- **Touch Optimization**: Touch-friendly interactions
+- **Viewport Handling**: Proper mobile viewport setup
+- **Performance**: Optimized for mobile networks
 
-## 🤝 Contribución
+## 🤝 Contributing
 
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+### Development Workflow
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes with proper TypeScript types
+4. Add tests for new functionality
+5. Run linting and tests (`pnpm lint && pnpm test`)
+6. Commit with conventional commits (`feat: add amazing feature`)
+7. Push to your branch (`git push origin feature/amazing-feature`)
+8. Open a Pull Request
 
-## 📄 Licencia
+### Code Standards
+- **TypeScript**: All code must be properly typed
+- **ESLint**: No linting errors allowed
+- **Testing**: New features require tests
+- **Documentation**: Update README for significant changes
 
-Este proyecto está bajo la licencia MIT.
+## 📋 Roadmap
+
+### Planned Features
+- [ ] **User Authentication**: Save favorite cocktails
+- [ ] **Offline Support**: PWA with offline capabilities
+- [ ] **Dark Mode**: Complete dark theme implementation
+- [ ] **Advanced Filters**: More filtering options (ABV, difficulty)
+- [ ] **Shopping List**: Generate ingredient shopping lists
+- [ ] **Social Features**: Share cocktails and reviews
+
+### Technical Improvements
+- [ ] **Storybook**: Component documentation
+- [ ] **E2E Testing**: Playwright integration
+- [ ] **Performance Monitoring**: Bundle size tracking
+- [ ] **Internationalization**: Multi-language support
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [TheCocktailDB](https://www.thecocktaildb.com/) for the comprehensive cocktail API
+- [Material-UI](https://mui.com/) for the excellent component library
+- [React Query](https://tanstack.com/query) for powerful data fetching
+- [Vite](https://vitejs.dev/) for the incredible build experience
 
 ---
 
-**Refactorizado completamente en 2025** - De Create React App a Vite + TypeScript + Material-UI v6
+**🎉 Completely refactored in 2025** - From Create React App to Vite + TypeScript + Modern Architecture
