@@ -3,8 +3,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import Header from './components/Header';
-import Form from './components/SearchForm';
+import SearchForm from './components/SearchForm';
 import DrinkList from './components/DrinksList';
+import FeaturedDrinks from './components/FeaturedDrinks';
 import { SearchFormData } from './types';
 
 // Create a custom theme for Material-UI
@@ -61,11 +62,18 @@ const App: React.FC = () => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Header />
-        <Form onSearch={handleSearch} />
-        <DrinkList 
-          searchParams={searchParams} 
-          searchEnabled={searchEnabled} 
-        />
+        <SearchForm onSearch={handleSearch} />
+        
+        {/* Show DrinkList only when there's a search, otherwise show FeaturedDrinks */}
+        {searchEnabled && searchParams ? (
+          <DrinkList 
+            searchParams={searchParams} 
+            searchEnabled={searchEnabled} 
+          />
+        ) : (
+          <FeaturedDrinks />
+        )}
+        
         {import.meta.env.DEV && (
           <ReactQueryDevtools initialIsOpen={false} />
         )}

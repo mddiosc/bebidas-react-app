@@ -71,3 +71,23 @@ export interface SearchFormData {
   category: string;
 }
 
+// Additional API types for extended functionality
+export interface Ingredient {
+  idIngredient: string;
+  strIngredient: string;
+  strDescription?: string | null;
+  strType?: string | null;
+}
+
+export interface IngredientApiResponse {
+  ingredients: Ingredient[];
+}
+
+export interface Glass {
+  strGlass: string;
+}
+
+export interface GlassApiResponse {
+  drinks: Glass[];
+}
+
