@@ -44,8 +44,9 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 3",
     "type-check": "tsc --noEmit"
   },
+  "packageManager": "pnpm@10.5.2",
   "volta": {
-    "node": "20.19.4",
-    "pnpm": "9.15.9"
+    "node": "22.14.0",
+    "pnpm": "10.5.2"
   }
 }

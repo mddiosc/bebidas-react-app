@@ -46,8 +46,8 @@ A modern React application for searching cocktail and drink recipes, completely 
 ## � Getting Started
 
 ### Prerequisites
-- Node.js 20+ (managed with Volta)
-- pnpm 9+ (managed with Volta)
+- Node.js 22.x LTS (managed with Volta)
+- pnpm 10.x (managed with Volta)
 
 ### Installation
 
@@ -207,11 +207,32 @@ pnpm test --coverage
 ```json
 {
   "volta": {
-    "node": "20.19.4",
-    "pnpm": "9.15.9"
+    "node": "22.14.0",
+    "pnpm": "10.5.2"
   }
 }
 ```
+
+## 🚀 Deployment (Dokploy + Docker)
+
+This project is deployed as a static Vite SPA using Docker and Nginx.
+
+### Docker build
+
+```bash
+docker build -t bebidas-react-app .
+docker run --rm -p 8080:80 bebidas-react-app
+```
+
+Then open `http://localhost:8080`.
+
+### Dokploy settings
+
+- Build type: `Dockerfile`
+- Docker file path: empty (defaults to `Dockerfile`)
+- Docker context path: empty (defaults to `.`)
+- Docker build stage: empty (uses final stage)
+- Internal container port for domain mapping: `80`
 
 ### TypeScript Configuration
 - **Strict Mode**: Maximum type safety
